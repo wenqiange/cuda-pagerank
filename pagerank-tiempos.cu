@@ -1,14 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-
-#ifndef SIZE
-#define SIZE 32
-#endif 
-
-#ifndef PINNED
-#define PINNED 0
-#endif 
+#include <time.h>
 
 #define N 4206784
 #define LAMBDA 0.90
@@ -26,25 +19,58 @@ typedef struct {
     int cap;
 } Vec;
 
+static inline void *safe_malloc(size_t bytes) {
+    void *ptr = malloc(bytes);
+    if (!ptr) {
+        fprintf(stderr, "Error: sin memoria (%zu bytes)\n", bytes);
+        exit(EXIT_FAILURE);
+    }
+    return ptr;
+}
+
+static inline void *safe_calloc(size_t count, size_t bytes) {
+    void *ptr = calloc(count, bytes);
+    if (!ptr) {
+        fprintf(stderr, "Error: sin memoria (%zu bytes)\n", count * bytes);
+        exit(EXIT_FAILURE);
+    }
+    return ptr;
+}
+
+static inline void *safe_realloc(void *ptr, size_t bytes) {
+    void *new_ptr = realloc(ptr, bytes);
+    if (!new_ptr) {
+        fprintf(stderr, "Error: sin memoria (%zu bytes)\n", bytes);
+        exit(EXIT_FAILURE);
+    }
+    return new_ptr;
+}
+
 static inline void vec_init(Vec *v) {
     v->size = 0;
-    v->cap = 4;
-    v->data = (int*) malloc(v->cap * sizeof(int));
+    v->cap = 0;
+    v->data = NULL;
 }
 
 static inline void vec_push(Vec *v, int x) {
-    if (v->size == v->cap) {
+    if (v->cap == 0) {
+        v->cap = 4;
+        v->data = (int*) safe_malloc(v->cap * sizeof(int));
+    } else if (v->size == v->cap) {
         v->cap *= 2;
-        v->data = (int*) realloc(v->data, v->cap * sizeof(int));
+        v->data = (int*) safe_realloc(v->data, v->cap * sizeof(int));
     }
     v->data[v->size++] = x;
 }
+
+double pagerank_time = 0.0;
+double matrixvec_time = 0.0;
 
 // ----------------------------------------------------------------------
 // PageRank usando estructura sparse
 // ----------------------------------------------------------------------
 void pagerank(Vec *adj, int *outdeg, double *p) {
-    double *p_new = (double*) malloc(N * sizeof(double));
+    double *p_new = (double*) safe_malloc(N * sizeof(double));
 
     for (int i = 0; i < N; i++)
         p[i] = 1.0 / N;
@@ -63,11 +89,15 @@ void pagerank(Vec *adj, int *outdeg, double *p) {
 
         double add_dang = LAMBDA * dangling_sum / N;
 
+        clock_t start_time_mv, end_time_mv;
+        start_time_mv = clock();
         for (int u = 0; u < N; u++)
             for (int k = 0; k < adj[u].size; k++) {
                 int v = adj[u].data[k];
                 p_new[v] += LAMBDA * (p[u] / outdeg[u]);
             }
+        end_time_mv = clock();
+        matrixvec_time += (double)(end_time_mv - start_time_mv) / CLOCKS_PER_SEC;
 
         for (int i = 0; i < N; i++)
             p_new[i] += add_dang;
@@ -97,29 +127,45 @@ int main() {
         return 1;
     }
 
-    Vec *adj = (Vec*) malloc(N * sizeof(Vec));
-    int *outdeg = (int*) calloc(N, sizeof(int));
+    Vec *adj = (Vec*) safe_malloc(N * sizeof(Vec));
+    int *outdeg = (int*) safe_calloc(N, sizeof(int));
 
     for (int i = 0; i < N; i++)
         vec_init(&adj[i]);
 
     int u, v;
     char line[128];
+    size_t invalid_edges = 0;
 	while (fgets(line, sizeof(line), file)) {
 
 		if (line[0] == '#') continue;  // saltar comentarios
 
 		if (sscanf(line, "%d %d", &u, &v) == 2) {
-			if (u < N && v < N) {
+			if (u >= 0 && v >= 0 && u < N && v < N) {
 				vec_push(&adj[u], v);
 				outdeg[u]++;
+			} else {
+				invalid_edges++;
 			}
 		}
 	}
 
-    double *p = (double*) malloc(N * sizeof(double));
-    pagerank(adj, outdeg, p);
+    fclose(file);
 
+    if (invalid_edges > 0)
+        fprintf(stderr, "Advertencia: se descartaron %zu aristas fuera de rango [0,%d)\n", invalid_edges, N);
+
+    double *p = (double*) safe_malloc(N * sizeof(double));
+    clock_t start_time_pr, end_time_pr;
+    matrixvec_time = 0.0;
+    pagerank_time = 0.0;
+    start_time_pr = clock();
+    pagerank(adj, outdeg, p);
+    end_time_pr = clock();
+    pagerank_time = (double)(end_time_pr - start_time_pr) / CLOCKS_PER_SEC;
+    printf("Tiempo total PageRank: %.6f segundos\n", pagerank_time);
+    printf("Tiempo total Matrix-Vector: %.6f segundos\n", matrixvec_time);
+    
     // Mostrar los 10 nodos con mayor PageRank
     int idx[ELEMS_A_MOSTRAR];
     double val[ELEMS_A_MOSTRAR];
