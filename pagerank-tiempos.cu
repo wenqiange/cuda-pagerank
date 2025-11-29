@@ -1,76 +1,42 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <map>
+#include <string>
+#include <queue>
+#include <vector>
+#include <algorithm>
+
+#include "params.h"
+#include "utils.cu"
+
+#ifndef SIZE
+#define SIZE 32
+#endif 
+
+#ifndef PINNED
+#define PINNED 0
+#endif
+
+// Time measurement
 #include <time.h>
+time_t total_start, total_end;  // para medir tiempo total
+double total_time = 0.0;        // tiempo total
+time_t mv_start, mv_end;        // para medir tiempo de multiplicación matriz-vector
+double accum_mv_time = 0.0;     // tiempo acumulado de multiplicaciones matriz-vector
+time_t pr_start, pr_end;        // para medir tiempo de PageRank
+double pr_time = 0.0;           // tiempo de PageRank
+time_t load_start, load_end;    // para medir tiempo de carga de datos
+double load_time = 0.0;         // tiempo de carga de datos
+time_t res_start, res_end;      // para medir tiempo de resultados
+double res_time = 0.0;          // tiempo de resultados
 
-#define N 4206784
-#define LAMBDA 0.90
-#define EPSILON 1e-6
-#define MAX_ITER 100
-#define ELEMS_A_MOSTRAR 10
-
-// ----------------------------------------------------------------------
-// Estructura sparse: lista de adyacencia para grafo dirigido
-// adj[u][k] = v  (enlace u -> v)
-// ----------------------------------------------------------------------
-typedef struct {
-    int *data;
-    int size;
-    int cap;
-} Vec;
-
-static inline void *safe_malloc(size_t bytes) {
-    void *ptr = malloc(bytes);
-    if (!ptr) {
-        fprintf(stderr, "Error: sin memoria (%zu bytes)\n", bytes);
-        exit(EXIT_FAILURE);
-    }
-    return ptr;
-}
-
-static inline void *safe_calloc(size_t count, size_t bytes) {
-    void *ptr = calloc(count, bytes);
-    if (!ptr) {
-        fprintf(stderr, "Error: sin memoria (%zu bytes)\n", count * bytes);
-        exit(EXIT_FAILURE);
-    }
-    return ptr;
-}
-
-static inline void *safe_realloc(void *ptr, size_t bytes) {
-    void *new_ptr = realloc(ptr, bytes);
-    if (!new_ptr) {
-        fprintf(stderr, "Error: sin memoria (%zu bytes)\n", bytes);
-        exit(EXIT_FAILURE);
-    }
-    return new_ptr;
-}
-
-static inline void vec_init(Vec *v) {
-    v->size = 0;
-    v->cap = 0;
-    v->data = NULL;
-}
-
-static inline void vec_push(Vec *v, int x) {
-    if (v->cap == 0) {
-        v->cap = 4;
-        v->data = (int*) safe_malloc(v->cap * sizeof(int));
-    } else if (v->size == v->cap) {
-        v->cap *= 2;
-        v->data = (int*) safe_realloc(v->data, v->cap * sizeof(int));
-    }
-    v->data[v->size++] = x;
-}
-
-double pagerank_time = 0.0;
-double matrixvec_time = 0.0;
 
 // ----------------------------------------------------------------------
 // PageRank usando estructura sparse
 // ----------------------------------------------------------------------
 void pagerank(Vec *adj, int *outdeg, double *p) {
-    double *p_new = (double*) safe_malloc(N * sizeof(double));
+    double *p_new = (double*) malloc(N * sizeof(double));
 
     for (int i = 0; i < N; i++)
         p[i] = 1.0 / N;
@@ -89,15 +55,14 @@ void pagerank(Vec *adj, int *outdeg, double *p) {
 
         double add_dang = LAMBDA * dangling_sum / N;
 
-        clock_t start_time_mv, end_time_mv;
-        start_time_mv = clock();
+        mv_start = clock();
         for (int u = 0; u < N; u++)
             for (int k = 0; k < adj[u].size; k++) {
                 int v = adj[u].data[k];
                 p_new[v] += LAMBDA * (p[u] / outdeg[u]);
             }
-        end_time_mv = clock();
-        matrixvec_time += (double)(end_time_mv - start_time_mv) / CLOCKS_PER_SEC;
+        mv_end = clock();
+        accum_mv_time += (double)(mv_end - mv_start) / CLOCKS_PER_SEC;
 
         for (int i = 0; i < N; i++)
             p_new[i] += add_dang;
@@ -120,80 +85,42 @@ void pagerank(Vec *adj, int *outdeg, double *p) {
 // MAIN
 // ----------------------------------------------------------------------
 int main() {
+    total_start = clock();
+    load_start = clock();
+        FILE *fgraph, *fmap;
+        load_files(&fgraph, &fmap);
 
-    FILE *file = fopen("enwiki-2013.txt", "r");
-    if (!file) {
-        printf("No se pudo abrir el fichero\n");
-        return 1;
-    }
+        Vec *adj = (Vec*) malloc(N * sizeof(Vec));
+        int *outdeg = (int*) calloc(N, sizeof(int));
+        load_graph(fgraph, adj, outdeg);
+        
+        std::map<int, std::string> id_to_title;
+        load_map(fmap, id_to_title);
+    load_end = clock();
 
-    Vec *adj = (Vec*) safe_malloc(N * sizeof(Vec));
-    int *outdeg = (int*) safe_calloc(N, sizeof(int));
+    pr_start = clock();
+        double *p = (double*) malloc(N * sizeof(double));
+        pagerank(adj, outdeg, p);
+    pr_end = clock();
 
-    for (int i = 0; i < N; i++)
-        vec_init(&adj[i]);
-
-    int u, v;
-    char line[128];
-    size_t invalid_edges = 0;
-	while (fgets(line, sizeof(line), file)) {
-
-		if (line[0] == '#') continue;  // saltar comentarios
-
-		if (sscanf(line, "%d %d", &u, &v) == 2) {
-			if (u >= 0 && v >= 0 && u < N && v < N) {
-				vec_push(&adj[u], v);
-				outdeg[u]++;
-			} else {
-				invalid_edges++;
-			}
-		}
-	}
-
-    fclose(file);
-
-    if (invalid_edges > 0)
-        fprintf(stderr, "Advertencia: se descartaron %zu aristas fuera de rango [0,%d)\n", invalid_edges, N);
-
-    double *p = (double*) safe_malloc(N * sizeof(double));
-    clock_t start_time_pr, end_time_pr;
-    matrixvec_time = 0.0;
-    pagerank_time = 0.0;
-    start_time_pr = clock();
-    pagerank(adj, outdeg, p);
-    end_time_pr = clock();
-    pagerank_time = (double)(end_time_pr - start_time_pr) / CLOCKS_PER_SEC;
-    printf("Tiempo total PageRank: %.6f segundos\n", pagerank_time);
-    printf("Tiempo total Matrix-Vector: %.6f segundos\n", matrixvec_time);
-    
-    // Mostrar los 10 nodos con mayor PageRank
-    int idx[ELEMS_A_MOSTRAR];
-    double val[ELEMS_A_MOSTRAR];
-    for (int i = 0; i < ELEMS_A_MOSTRAR; i++) {
-        idx[i] = -1;
-        val[i] = -1.0;
-    }
-    for (int i = 0; i < N; i++) {
-        // Buscar si p[i] es mayor que alguno de los 10 actuales
-        int min_idx = 0;
-        for (int j = 1; j < ELEMS_A_MOSTRAR; j++)
-            if (val[j] < val[min_idx]) min_idx = j;
-        if (p[i] > val[min_idx]) {
-            val[min_idx] = p[i];
-            idx[min_idx] = i;
-        }
-    }
-    // Mostrar los resultados
-    //TODO: que se muestren ordenados
-    for (int i = 0; i < ELEMS_A_MOSTRAR; i++)
-        printf("p[%d] = %.10f\n", idx[i], val[i]);
-
-    for (int i = 0; i < N; i++)
-        free(adj[i].data);
-
+    res_start = clock();
+        print_results(p, id_to_title);
+    res_end = clock();
     free(adj);
     free(outdeg);
     free(p);
+    total_end = clock();
+
+    // Print timing results
+    total_time = (double)(total_end - total_start) / CLOCKS_PER_SEC;
+    load_time = (double)(load_end - load_start) / CLOCKS_PER_SEC;
+    pr_time = (double)(pr_end - pr_start) / CLOCKS_PER_SEC;
+    res_time = (double)(res_end - res_start) / CLOCKS_PER_SEC;
+    printf("Tiempo total: %.6f segundos\n", total_time);
+    printf("Tiempo de carga de datos: %.6f segundos\n", load_time);
+    printf("Tiempo de PageRank: %.6f segundos\n", pr_time);
+    printf("Tiempo de resultados: %.6f segundos\n", res_time);
+    printf("Tiempo acumulado de multiplicaciones matriz-vector: %.6f segundos\n", accum_mv_time);
 
     return 0;
 }

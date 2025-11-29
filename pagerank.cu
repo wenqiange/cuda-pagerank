@@ -1,6 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <map>
+#include <string>
+#include <queue>
+#include <vector>
+#include <algorithm>
+
+#include "params.h"
+#include "utils.cu"
 
 #ifndef SIZE
 #define SIZE 32
@@ -10,35 +18,6 @@
 #define PINNED 0
 #endif 
 
-#define N 4206784
-#define LAMBDA 0.90
-#define EPSILON 1e-6
-#define MAX_ITER 100
-#define ELEMS_A_MOSTRAR 10
-
-// ----------------------------------------------------------------------
-// Estructura sparse: lista de adyacencia para grafo dirigido
-// adj[u][k] = v  (enlace u -> v)
-// ----------------------------------------------------------------------
-typedef struct {
-    int *data;
-    int size;
-    int cap;
-} Vec;
-
-static inline void vec_init(Vec *v) {
-    v->size = 0;
-    v->cap = 4;
-    v->data = (int*) malloc(v->cap * sizeof(int));
-}
-
-static inline void vec_push(Vec *v, int x) {
-    if (v->size == v->cap) {
-        v->cap *= 2;
-        v->data = (int*) realloc(v->data, v->cap * sizeof(int));
-    }
-    v->data[v->size++] = x;
-}
 
 // ----------------------------------------------------------------------
 // PageRank usando estructura sparse
@@ -90,60 +69,20 @@ void pagerank(Vec *adj, int *outdeg, double *p) {
 // MAIN
 // ----------------------------------------------------------------------
 int main() {
-
-    FILE *file = fopen("enwiki-2013.txt", "r");
-    if (!file) {
-        printf("No se pudo abrir el fichero\n");
-        return 1;
-    }
+    FILE *fgraph, *fmap;
+    load_files(&fgraph, &fmap);
 
     Vec *adj = (Vec*) malloc(N * sizeof(Vec));
     int *outdeg = (int*) calloc(N, sizeof(int));
+    load_graph(fgraph, adj, outdeg);
 
-    for (int i = 0; i < N; i++)
-        vec_init(&adj[i]);
-
-    int u, v;
-    char line[128];
-	while (fgets(line, sizeof(line), file)) {
-
-		if (line[0] == '#') continue;  // saltar comentarios
-
-		if (sscanf(line, "%d %d", &u, &v) == 2) {
-			if (u < N && v < N) {
-				vec_push(&adj[u], v);
-				outdeg[u]++;
-			}
-		}
-	}
+    std::map<int, std::string> id_to_title;
+    load_map(fmap, id_to_title);
 
     double *p = (double*) malloc(N * sizeof(double));
     pagerank(adj, outdeg, p);
-
-    // Mostrar los 10 nodos con mayor PageRank
-    int idx[ELEMS_A_MOSTRAR];
-    double val[ELEMS_A_MOSTRAR];
-    for (int i = 0; i < ELEMS_A_MOSTRAR; i++) {
-        idx[i] = -1;
-        val[i] = -1.0;
-    }
-    for (int i = 0; i < N; i++) {
-        // Buscar si p[i] es mayor que alguno de los 10 actuales
-        int min_idx = 0;
-        for (int j = 1; j < ELEMS_A_MOSTRAR; j++)
-            if (val[j] < val[min_idx]) min_idx = j;
-        if (p[i] > val[min_idx]) {
-            val[min_idx] = p[i];
-            idx[min_idx] = i;
-        }
-    }
-    // Mostrar los resultados
-    //TODO: que se muestren ordenados
-    for (int i = 0; i < ELEMS_A_MOSTRAR; i++)
-        printf("p[%d] = %.10f\n", idx[i], val[i]);
-
-    for (int i = 0; i < N; i++)
-        free(adj[i].data);
+ 
+    print_results(p, id_to_title);
 
     free(adj);
     free(outdeg);
