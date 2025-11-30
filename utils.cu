@@ -46,7 +46,7 @@ void load_files(FILE **fgraph, FILE **fmap) {
 
 // Cargar el grafo desde el fichero
 void load_graph(FILE *fgraph, Vec *adj, int *outdeg) {
-    for (int i = 0; i < N; i++)
+    for (int i = 0; i < NB_NODES; i++)
         vec_init(&adj[i]);
 
     int u, v;
@@ -54,7 +54,7 @@ void load_graph(FILE *fgraph, Vec *adj, int *outdeg) {
     while (fgets(line, sizeof(line), fgraph)) {
         if (line[0] == '#') continue;  // saltar comentarios
         if (sscanf(line, "%d %d", &u, &v) == 2) {
-            if (u < N && v < N) {
+            if (u < NB_NODES && v < NB_NODES) {
                 vec_push(&adj[u], v);
                 outdeg[u]++;
             }
@@ -78,6 +78,28 @@ void load_map(FILE *fmap, std::map<int, std::string> &id_to_title) {
     }
 }
 
+// Convertir la representación de lista de adyacencia a CSR
+void convert_to_csr(Vec *adj, int **row_ptr_ptr, int **col_idx_ptr) {
+    int *row_ptr = (int*) malloc((NB_NODES + 1) * sizeof(int));
+    row_ptr[0] = 0;
+
+    int total_edges = 0;
+    for (int i = 0; i < NB_NODES; i++)
+        total_edges += adj[i].size;
+
+    int *col_idx = (int*) malloc(total_edges * sizeof(int));
+
+    int pos = 0;
+    for (int u = 0; u < NB_NODES; u++) {
+        row_ptr[u+1] = row_ptr[u] + adj[u].size;
+        for (int k = 0; k < adj[u].size; k++)
+            col_idx[pos++] = adj[u].data[k];
+    }
+
+    *row_ptr_ptr = row_ptr;
+    *col_idx_ptr = col_idx;
+}
+
 // Mostrar los ELEMS_A_MOSTRAR nodos con mayor PageRank
 void print_results(double *p, std::map<int, std::string> &id_to_title) {
     struct PRNode {
@@ -89,7 +111,7 @@ void print_results(double *p, std::map<int, std::string> &id_to_title) {
     };
 
     std::priority_queue<PRNode, std::vector<PRNode>> minheap;
-    for (int i = 0; i < N; i++) {
+    for (int i = 0; i < NB_NODES; i++) {
         if ((int)minheap.size() < ELEMS_A_MOSTRAR) {
             minheap.push({i, p[i]});
         } else if (p[i] > minheap.top().val) {
@@ -111,3 +133,4 @@ void print_results(double *p, std::map<int, std::string> &id_to_title) {
     for (int i = 0; i < (int)top_nodes.size(); i++)
         printf("p[%d] = %.10f\t%s\n", top_nodes[i].idx, top_nodes[i].val, id_to_title[top_nodes[i].idx].c_str());
 }
+

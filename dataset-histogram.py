@@ -23,8 +23,6 @@ max_out = vals.max()
 bins = np.linspace(min_out, max_out, 51)  # 80 bins
 
 hist, edges = np.histogram(vals, bins=bins)
-
-print('Max outdegree:', max_out)
 # Find the node with maximum outdegree
 max_node = max(outdeg, key=outdeg.get)
 
@@ -37,6 +35,9 @@ with open('./enwiki-2013-names.csv', 'r', encoding='utf-8', errors='replace') as
         names[node_id] = row['name']
 
 # Print the node_id and name for the max outdegree node
+print('Number of nodes:', max(names.keys()))
+print('Number of edges:', vals.sum())
+print('Max outdegree:', max_out)
 print(f'"{max_node}","{names.get(max_node, "Unknown")}"')
 
 plt.figure(figsize=(10,6))

@@ -30,45 +30,46 @@ time_t load_start, load_end;    // para medir tiempo de carga de datos
 double load_time = 0.0;         // tiempo de carga de datos
 time_t res_start, res_end;      // para medir tiempo de resultados
 double res_time = 0.0;          // tiempo de resultados
+time_t sparse_start, sparse_end; // para medir tiempo de conversión a CSR
+double sparse_time = 0.0;       // tiempo de conversión a CSR
 
 
 // ----------------------------------------------------------------------
-// PageRank usando estructura sparse
+// PageRank usando estructura sparse (CSR)
 // ----------------------------------------------------------------------
-void pagerank(Vec *adj, int *outdeg, double *p) {
-    double *p_new = (double*) malloc(N * sizeof(double));
+void pagerank(int *row_ptr, int *col_idx, int *outdeg, double *p) {
+    double *p_new = (double*) malloc(NB_NODES * sizeof(double));
 
-    for (int i = 0; i < N; i++)
-        p[i] = 1.0 / N;
+    for (int i = 0; i < NB_NODES; i++)
+        p[i] = 1.0 / NB_NODES;
 
     int iter = 0;
 
     while (iter < MAX_ITER) {
 
-        for (int i = 0; i < N; i++)
-            p_new[i] = (1 - LAMBDA) / N;
+        for (int i = 0; i < NB_NODES; i++)
+            p_new[i] = (1 - LAMBDA) / NB_NODES;
 
         double dangling_sum = 0.0;
-        for (int u = 0; u < N; u++)
+        for (int u = 0; u < NB_NODES; u++)
             if (outdeg[u] == 0)
                 dangling_sum += p[u];
 
-        double add_dang = LAMBDA * dangling_sum / N;
-
+        double add_dang = LAMBDA * dangling_sum / NB_NODES;
         mv_start = clock();
-        for (int u = 0; u < N; u++)
-            for (int k = 0; k < adj[u].size; k++) {
-                int v = adj[u].data[k];
-                p_new[v] += LAMBDA * (p[u] / outdeg[u]);
+        for (int u = 0; u < NB_NODES; u++)
+            for (int k = row_ptr[u]; k < row_ptr[u + 1]; k++) {
+                int v = col_idx[k];
+                p_new[v] += LAMBDA * p[u] / outdeg[u];
             }
         mv_end = clock();
         accum_mv_time += (double)(mv_end - mv_start) / CLOCKS_PER_SEC;
 
-        for (int i = 0; i < N; i++)
+        for (int i = 0; i < NB_NODES; i++)
             p_new[i] += add_dang;
 
         double diff = 0.0;
-        for (int i = 0; i < N; i++) {
+        for (int i = 0; i < NB_NODES; i++) {
             diff += fabs(p_new[i] - p[i]);
             p[i] = p_new[i];
         }
@@ -87,25 +88,33 @@ void pagerank(Vec *adj, int *outdeg, double *p) {
 int main() {
     total_start = clock();
     load_start = clock();
-        FILE *fgraph, *fmap;
-        load_files(&fgraph, &fmap);
+    FILE *fgraph, *fmap;
+    load_files(&fgraph, &fmap);
 
-        Vec *adj = (Vec*) malloc(N * sizeof(Vec));
-        int *outdeg = (int*) calloc(N, sizeof(int));
-        load_graph(fgraph, adj, outdeg);
-        
-        std::map<int, std::string> id_to_title;
-        load_map(fmap, id_to_title);
+    Vec *adj = (Vec*) malloc(NB_NODES * sizeof(Vec));
+    int *outdeg = (int*) calloc(NB_NODES, sizeof(int));
+    load_graph(fgraph, adj, outdeg);
+    std::map<int, std::string> id_to_title;
+    load_map(fmap, id_to_title);
     load_end = clock();
 
+    sparse_start = clock();
+    int *row_ptr, *col_idx;
+    convert_to_csr(adj, &row_ptr, &col_idx);
+    sparse_end = clock();
+    sparse_time = (double)(sparse_end - sparse_start) / CLOCKS_PER_SEC;
+
     pr_start = clock();
-        double *p = (double*) malloc(N * sizeof(double));
-        pagerank(adj, outdeg, p);
+    double *p = (double*) malloc(NB_NODES * sizeof(double));
+    pagerank(row_ptr, col_idx, outdeg, p);
     pr_end = clock();
 
     res_start = clock();
-        print_results(p, id_to_title);
+    print_results(p, id_to_title);
     res_end = clock();
+
+    free(row_ptr);
+    free(col_idx);
     free(adj);
     free(outdeg);
     free(p);
@@ -118,6 +127,7 @@ int main() {
     res_time = (double)(res_end - res_start) / CLOCKS_PER_SEC;
     printf("Tiempo total: %.6f segundos\n", total_time);
     printf("Tiempo de carga de datos: %.6f segundos\n", load_time);
+    printf("Tiempo de conversión a CSR: %.6f segundos\n", sparse_time);
     printf("Tiempo de PageRank: %.6f segundos\n", pr_time);
     printf("Tiempo de resultados: %.6f segundos\n", res_time);
     printf("Tiempo acumulado de multiplicaciones matriz-vector: %.6f segundos\n", accum_mv_time);
