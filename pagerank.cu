@@ -10,17 +10,9 @@
 #include "params.h"
 #include "utils.cu"
 
-#ifndef SIZE
-#define SIZE 32
-#endif 
-
-#ifndef PINNED
-#define PINNED 0
-#endif 
-
 
 // ----------------------------------------------------------------------
-// PageRank usando estructura sparse (CSR)
+// PageRank useing (CSR)
 // ----------------------------------------------------------------------
 void pagerank(int *row_ptr, int *col_idx, int *outdeg, double *p) {
     double *p_new = (double*) malloc(NB_NODES * sizeof(double));
@@ -68,16 +60,18 @@ void pagerank(int *row_ptr, int *col_idx, int *outdeg, double *p) {
 // MAIN
 // ----------------------------------------------------------------------
 int main() {
+    printf("CUDA PageRank (pagerank.cu)\n");
+
     FILE *fgraph, *fmap;
     load_files(&fgraph, &fmap);
 
-    Vec *adj = (Vec*) malloc(NB_NODES * sizeof(Vec));
+    AdjMat adj(NB_NODES);
     int *outdeg = (int*) calloc(NB_NODES, sizeof(int));
     load_graph(fgraph, adj, outdeg);
     std::map<int, std::string> id_to_title;
     load_map(fmap, id_to_title);
 
-    // convertir a formato CSR
+    // convert to CSR format
     int *row_ptr, *col_idx;
     convert_to_csr(adj, &row_ptr, &col_idx);
 
@@ -88,7 +82,6 @@ int main() {
 
     free(row_ptr);
     free(col_idx);
-    free(adj);
     free(outdeg);
     free(p);
 

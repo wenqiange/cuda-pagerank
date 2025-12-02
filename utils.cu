@@ -7,62 +7,44 @@
 
 #include "params.h"
 
-// ----------------------------------------------------------------------
-// Estructura sparse: lista de adyacencia para grafo dirigido
-// adj[u][k] = v  (enlace u -> v)
-// ----------------------------------------------------------------------
-typedef struct {
-    int *data;
-    int size;
-    int cap;
-} Vec;
+using Vec = std::vector<int>;
+using AdjMat = std::vector<Vec>;
 
-static inline void vec_init(Vec *v) {
-    v->size = 0;
-    v->cap = 4;
-    v->data = (int*) malloc(v->cap * sizeof(int));
-}
-
-static inline void vec_push(Vec *v, int x) {
-    if (v->size == v->cap) {
-        v->cap *= 2;
-        v->data = (int*) realloc(v->data, v->cap * sizeof(int));
-    }
-    v->data[v->size++] = x;
-}
-
+// Load the graph and map files
 void load_files(FILE **fgraph, FILE **fmap) {
-    *fgraph = fopen("enwiki-2013.txt", "r");
+    *fgraph = fopen(GRAPH_FILE, "r");
     if (!*fgraph) {
         printf("No se pudo abrir el fichero del grafo\n");
         exit(1);
     }
-    *fmap = fopen("enwiki-2013-names.csv", "r");
+    *fmap = fopen(MAP_FILE, "r");
     if (!*fmap) {
         printf("No se pudo abrir el fichero del mapa\n");
         exit(1);
     }
 }
 
-// Cargar el grafo desde el fichero
-void load_graph(FILE *fgraph, Vec *adj, int *outdeg) {
-    for (int i = 0; i < NB_NODES; i++)
-        vec_init(&adj[i]);
-
+// Load the graph from file into adjacency list and outdegree array
+void load_graph(FILE *fgraph, AdjMat &adj, int *outdeg) {
+    adj = AdjMat(NB_NODES);
+    
     int u, v;
     char line[128];
     while (fgets(line, sizeof(line), fgraph)) {
-        if (line[0] == '#') continue;  // saltar comentarios
+        if (line[0] == '#') continue;  // skip comments
         if (sscanf(line, "%d %d", &u, &v) == 2) {
             if (u < NB_NODES && v < NB_NODES) {
-                vec_push(&adj[u], v);
+                // Memory optimization: reserve extra space if needed
+                if (adj[u].capacity() == adj[u].size())
+                    adj[u].reserve(adj[u].size()*2);
+                adj[u].push_back(v);
                 outdeg[u]++;
             }
         }
     }
 }
 
-// Cargar el mapa de IDs a títulos
+// Load the map from file into ID-to-title map
 void load_map(FILE *fmap, std::map<int, std::string> &id_to_title) {
     char line[512];
     while (fgets(line, sizeof(line), fmap)) {
@@ -78,41 +60,41 @@ void load_map(FILE *fmap, std::map<int, std::string> &id_to_title) {
     }
 }
 
-// Convertir la representación de lista de adyacencia a CSR
-void convert_to_csr(Vec *adj, int **row_ptr_ptr, int **col_idx_ptr) {
+// Convert adjacency list representation to CSR
+void convert_to_csr(AdjMat &adj, int **row_ptr_ptr, int **col_idx_ptr) {
     int *row_ptr = (int*) malloc((NB_NODES + 1) * sizeof(int));
     row_ptr[0] = 0;
 
     int total_edges = 0;
     for (int i = 0; i < NB_NODES; i++)
-        total_edges += adj[i].size;
+        total_edges += adj[i].size();
 
     int *col_idx = (int*) malloc(total_edges * sizeof(int));
 
     int pos = 0;
     for (int u = 0; u < NB_NODES; u++) {
-        row_ptr[u+1] = row_ptr[u] + adj[u].size;
-        for (int k = 0; k < adj[u].size; k++)
-            col_idx[pos++] = adj[u].data[k];
+        row_ptr[u+1] = row_ptr[u] + adj[u].size();
+        for (int k = 0; k < adj[u].size(); k++)
+            col_idx[pos++] = adj[u][k];
     }
 
     *row_ptr_ptr = row_ptr;
     *col_idx_ptr = col_idx;
 }
 
-// Mostrar los ELEMS_A_MOSTRAR nodos con mayor PageRank
+// Show the top ELEMS_TO_SHOW nodes with highest PageRank
 void print_results(double *p, std::map<int, std::string> &id_to_title) {
     struct PRNode {
         int idx;
         double val;
         bool operator<(const PRNode& other) const {
-            return val > other.val; // Para min-heap
+            return val > other.val; // For min-heap
         }
     };
 
     std::priority_queue<PRNode, std::vector<PRNode>> minheap;
     for (int i = 0; i < NB_NODES; i++) {
-        if ((int)minheap.size() < ELEMS_A_MOSTRAR) {
+        if ((int)minheap.size() < ELEMS_TO_SHOW) {
             minheap.push({i, p[i]});
         } else if (p[i] > minheap.top().val) {
             minheap.pop();
@@ -120,7 +102,7 @@ void print_results(double *p, std::map<int, std::string> &id_to_title) {
         }
     }
 
-    // Extraer y ordenar resultados
+    // Extract and sort results
     std::vector<PRNode> top_nodes;
     while (!minheap.empty()) {
         top_nodes.push_back(minheap.top());

@@ -10,32 +10,24 @@
 #include "params.h"
 #include "utils.cu"
 
-#ifndef SIZE
-#define SIZE 32
-#endif 
-
-#ifndef PINNED
-#define PINNED 0
-#endif
-
 // Time measurement
 #include <time.h>
-time_t total_start, total_end;  // para medir tiempo total
-double total_time = 0.0;        // tiempo total
-time_t mv_start, mv_end;        // para medir tiempo de multiplicación matriz-vector
-double accum_mv_time = 0.0;     // tiempo acumulado de multiplicaciones matriz-vector
-time_t pr_start, pr_end;        // para medir tiempo de PageRank
-double pr_time = 0.0;           // tiempo de PageRank
-time_t load_start, load_end;    // para medir tiempo de carga de datos
-double load_time = 0.0;         // tiempo de carga de datos
-time_t res_start, res_end;      // para medir tiempo de resultados
-double res_time = 0.0;          // tiempo de resultados
-time_t sparse_start, sparse_end; // para medir tiempo de conversión a CSR
-double sparse_time = 0.0;       // tiempo de conversión a CSR
+time_t total_start, total_end;   // for measuring total time
+double total_time = 0.0;         // total time
+time_t mv_start, mv_end;         // for measuring matrix-vector multiplication time
+double accum_mv_time = 0.0;      // accumulated matrix-vector multiplication time
+time_t pr_start, pr_end;         // for measuring PageRank time
+double pr_time = 0.0;            // PageRank time
+time_t load_start, load_end;     // for measuring data loading time
+double load_time = 0.0;          // data loading time
+time_t res_start, res_end;       // for measuring results time
+double res_time = 0.0;           // results time
+time_t sparse_start, sparse_end; // for measuring CSR conversion time
+double sparse_time = 0.0;        // CSR conversion time
 
 
 // ----------------------------------------------------------------------
-// PageRank usando estructura sparse (CSR)
+// PageRank using sparse structure (CSR)
 // ----------------------------------------------------------------------
 void pagerank(int *row_ptr, int *col_idx, int *outdeg, double *p) {
     double *p_new = (double*) malloc(NB_NODES * sizeof(double));
@@ -78,7 +70,7 @@ void pagerank(int *row_ptr, int *col_idx, int *outdeg, double *p) {
         iter++;
     }
 
-    printf("Convergencia en %d iteraciones\n", iter);
+    printf("Convergence in %d iterations\n", iter);
     free(p_new);
 }
 
@@ -86,12 +78,14 @@ void pagerank(int *row_ptr, int *col_idx, int *outdeg, double *p) {
 // MAIN
 // ----------------------------------------------------------------------
 int main() {
+    printf("CUDA PageRank (pagerank-tiempos.cu)\n");
+
     total_start = clock();
     load_start = clock();
     FILE *fgraph, *fmap;
     load_files(&fgraph, &fmap);
 
-    Vec *adj = (Vec*) malloc(NB_NODES * sizeof(Vec));
+    AdjMat adj(NB_NODES);
     int *outdeg = (int*) calloc(NB_NODES, sizeof(int));
     load_graph(fgraph, adj, outdeg);
     std::map<int, std::string> id_to_title;
@@ -115,22 +109,21 @@ int main() {
 
     free(row_ptr);
     free(col_idx);
-    free(adj);
     free(outdeg);
     free(p);
     total_end = clock();
 
-    // Print timing results
+    // Time reporting
     total_time = (double)(total_end - total_start) / CLOCKS_PER_SEC;
     load_time = (double)(load_end - load_start) / CLOCKS_PER_SEC;
     pr_time = (double)(pr_end - pr_start) / CLOCKS_PER_SEC;
     res_time = (double)(res_end - res_start) / CLOCKS_PER_SEC;
-    printf("Tiempo total: %.6f segundos\n", total_time);
-    printf("Tiempo de carga de datos: %.6f segundos\n", load_time);
-    printf("Tiempo de conversión a CSR: %.6f segundos\n", sparse_time);
-    printf("Tiempo de PageRank: %.6f segundos\n", pr_time);
-    printf("Tiempo de resultados: %.6f segundos\n", res_time);
-    printf("Tiempo acumulado de multiplicaciones matriz-vector: %.6f segundos\n", accum_mv_time);
+    printf("Total time: %.6f seconds\n", total_time);
+    printf("Data loading time: %.6f seconds\n", load_time);
+    printf("CSR conversion time: %.6f seconds\n", sparse_time);
+    printf("PageRank time: %.6f seconds\n", pr_time);
+    printf("Results time: %.6f seconds\n", res_time);
+    printf("Accumulated matrix-vector multiplication time: %.6f seconds\n", accum_mv_time);
 
     return 0;
 }
