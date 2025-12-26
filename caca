@@ -4,20 +4,18 @@ ARCH        = -gencode arch=compute_86,code=sm_86 -gencode arch=compute_89,code=
 NVCC_FLAGS  = -O3 -Wno-deprecated-gpu-targets -I$(CUDA_HOME)/include $(ARCH) --ptxas-options=-v -I$(CUDA_HOME)/sdk/CUDALibraries/common/inc
 LD_FLAGS    = -lcudart -Xlinker -rpath,$(CUDA_HOME)/lib64 -I$(CUDA_HOME)/sdk/CUDALibraries/common/lib
 
-TARGETS := pagerank pagerank-parV1 pagerank-parV2 pagerank-tiempos
-COMMON_DEPS := utils.cu params.h
+SRC    = pagerank-parV2.cu
+EXE    = pagerank.exe
+OBJ    = $(SRC:.cu=.o)
 
-.PHONY: all clean
+default: $(EXE)
 
-all: $(TARGETS)
+%.o: %.cu
+	$(NVCC) -c -o $@ $< $(NVCC_FLAGS)
 
-pagerank: pagerank.cu $(COMMON_DEPS)
-pagerank-parV1: pagerank-parV1.cu $(COMMON_DEPS)
-pagerank-parV2: pagerank-parV2.cu $(COMMON_DEPS)
-pagerank-tiempos: pagerank-tiempos.cu $(COMMON_DEPS)
+$(EXE): $(OBJ)
+	$(NVCC) $(OBJ) -o $(EXE) $(LD_FLAGS)
 
-%: %.cu
-	$(NVCC) $(NVCC_FLAGS) $< -o $@ $(LD_FLAGS)
-
+# Limpieza (borra también los reportes generados)
 clean:
-	rm -rf *.o $(TARGETS)
+	rm -rf *.o $(EXE) *.ncu-rep *.nsys-rep *.nvvp
