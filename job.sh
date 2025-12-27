@@ -30,21 +30,46 @@ export LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
 # ==============================
 # OPCIÓN A: PROFILING CON NSIGHT COMPUTE 
 # ==============================
-#ncu -o pagerank_report --set full --force-overwrite ./pagerank-parV1.exe
-#ncu -o pagerank_report --set full --force-overwrite ./pagerank-parV2.exe
-#ncu -o pagerank_report --set full --force-overwrite ./pagerank-parV3.exe
+echo "Iniciando ncu..."
+ncu -o pagerank_reportV1 --set full --force-overwrite ./pagerank-parV1.exe
+echo
+echo "---------------------------------------------------"
+echo
+ncu -o pagerank_reportV2 --set full --force-overwrite ./pagerank-parV2.exe
+echo
+echo "---------------------------------------------------"
+echo
+ncu -o pagerank_reportV3 --set full --force-overwrite ./pagerank-parV3.exe
+echo
+echo "---------------------------------------------------"
+echo
 
 # ==============================
 # OPCIÓN B: PROFILING CON NVPROF
 # ==============================
 echo "Iniciando nvprof..."
+nsys nvprof --print-gpu-summary ./pagerank-tiempos.exe
+echo
+echo "---------------------------------------------------"
+echo
 nsys nvprof --print-gpu-summary ./pagerank-parV1.exe
+echo
+echo "---------------------------------------------------"
+echo
 nsys nvprof --print-gpu-summary ./pagerank-parV2.exe
-#nsys nvprof --print-gpu-summary ./pagerank-parV3.exe
+echo
+echo "---------------------------------------------------"
+echo
+nsys nvprof --print-gpu-summary ./pagerank-parV3.exe
+echo
+echo "---------------------------------------------------"
+
 
 # ==============================
 # OPCIÓN C: SOLO EJECUCIÓN NORMAL
 # ==============================
-#./pagerank-parV1.exe
-#./pagerank-parV2.exe
-#./pagerank-parV3.exe
+echo "Iniciando ejecuciones normales..."
+./pagerank-tiempos.exe
+./pagerank-parV1.exe
+./pagerank-parV2.exe   
+./pagerank-parV3.exe

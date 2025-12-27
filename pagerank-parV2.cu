@@ -61,7 +61,7 @@ __global__ void dangling_partial(const double *p, const int *outdeg,
         partial[blockIdx.x] = sdata[0];
 }
 
-// Kernel para un paso de PageRank sobre las aristas
+// Kernel para un paso de PageRank
 __global__ void pagerank_step(const int *row_ptr, const int *col_idx,
                               const int *outdeg, const double *p,
                               double *p_new, int N, double lambda) {
@@ -186,7 +186,7 @@ void pagerank_cuda(int *h_row_ptr, int *h_col_idx, int *h_outdeg, double *h_p) {
         iter++;
     }
 
-    printf("Convergencia en %d iteraciones (CUDA)\n", iter);
+    printf("Convergencia en %d iteraciones\n", iter);
 
     // Copiar resultado final a host
     cudaMemcpy(h_p, d_p, N * sizeof(double), cudaMemcpyDeviceToHost);
@@ -203,7 +203,7 @@ void pagerank_cuda(int *h_row_ptr, int *h_col_idx, int *h_outdeg, double *h_p) {
 // MAIN
 // ----------------------------------------------------------------------
 int main() {
-    printf("CUDA PageRank (Instrumented)\n");
+    printf("CUDA PageRank (pagerank-parV2)\n");
 
     total_start = clock();
     load_start = clock();

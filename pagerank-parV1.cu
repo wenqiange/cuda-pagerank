@@ -123,7 +123,7 @@ void pagerank_cuda_v1(int *h_row_ptr, int *h_col_idx, int *h_outdeg, double *h_p
         iter++;
     }
 
-    printf("Convergencia en %d iteraciones (CUDA V1)\n", iter);
+    printf("Convergencia en %d iteraciones\n", iter);
 
     // Liberar recursos
     free(h_p_new);
@@ -138,7 +138,7 @@ void pagerank_cuda_v1(int *h_row_ptr, int *h_col_idx, int *h_outdeg, double *h_p
 // MAIN
 // ----------------------------------------------------------------------
 int main() {
-    printf("CUDA PageRank V1 (Hybrid Offloading)\n");
+    printf("CUDA PageRank (pagerank-parV1)\n");
 
     total_start = clock();
     load_start = clock();

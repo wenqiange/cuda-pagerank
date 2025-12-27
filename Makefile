@@ -5,14 +5,19 @@ NVCC_FLAGS  = -O3 -Wno-deprecated-gpu-targets -I$(CUDA_HOME)/include $(ARCH) --p
 LD_FLAGS    = -lcudart -Xlinker -rpath,$(CUDA_HOME)/lib64 -L$(CUDA_HOME)/lib64
 
 # -------- FUENTES --------
+SRC_TIEMPOS = pagerank-tiempos.cu
 SRC_V1 = pagerank-parV1.cu
 SRC_V2 = pagerank-parV2.cu
 SRC_V3 = pagerank-parV3.cu
 
+# -------- OBJETOS Y EJECUTABLES --------
+OBJ_TIEMPOS = pagerank-tiempos.o
 OBJ_V1 = pagerank-parV1.o
 OBJ_V2 = pagerank-parV2.o
 OBJ_V3 = pagerank-parV3.o
 
+# -------- EJECUTABLES --------
+EXE_TIEMPOS = pagerank-tiempos.exe
 EXE_V1 = pagerank-parV1.exe
 EXE_V2 = pagerank-parV2.exe
 EXE_V3 = pagerank-parV3.exe
