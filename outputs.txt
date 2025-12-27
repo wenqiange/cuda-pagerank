@@ -1,0 +1,679 @@
+Iniciando ncu...
+==PROF== Connected to process 155912 (/scratch/nas/1/cuda1021/Projecte/pagerank-parV1.exe)
+==PROF== Profiling "kernel_pagerank_push" - 0: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 1: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 2: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 3: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 4: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 5: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 6: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 7: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 8: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 9: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 10: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 11: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 12: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 13: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 14: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 15: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 16: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 17: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 18: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 19: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 20: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 21: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 22: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 23: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 24: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 25: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 26: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 27: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 28: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 29: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 30: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 31: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 32: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 33: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 34: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 35: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 36: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 37: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 38: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 39: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 40: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 41: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 42: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 43: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 44: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 45: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 46: 0%....50%....100% - 34 passes
+==PROF== Profiling "kernel_pagerank_push" - 47: 0%....50%....100% - 34 passes
+==PROF== Disconnected from process 155912
+CUDA PageRank (pagerank-parV1)
+Convergencia en 47 iteraciones
+p[2038044] = 0.0028772846	United States
+p[3528309] = 0.0011916531	United Kingdom
+p[605008] = 0.0011598535	France
+p[2697766] = 0.0010348175	Germany
+p[2693870] = 0.0009254558	World War II
+p[3001476] = 0.0008811039	Canada
+p[3102033] = 0.0008552851	England
+p[2899898] = 0.0008017589	India
+p[1394725] = 0.0007182590	Australia
+p[3102702] = 0.0007166082	Association football
+Total time: 103.600729 seconds
+Data loading time: 26.009635 seconds
+CSR conversion time: 0.282952 seconds
+PageRank time: 77.283494 seconds
+Results time: 0.004880 seconds
+Accumulated MV time (Transfer + Kernel): 76.080369 seconds
+==PROF== Report: /scratch/nas/1/cuda1021/Projecte/pagerank_reportV1.ncu-rep
+
+---------------------------------------------------
+
+==PROF== Connected to process 157665 (/scratch/nas/1/cuda1021/Projecte/pagerank-parV2.exe)
+==PROF== Profiling "init_p(double *, int)" - 0: 0%....50%....100% - 34 passes
+==PROF== Profiling "init_p_new" - 1: 0%....50%....100% - 34 passes
+==PROF== Profiling "dangling_partial" - 2: 0%....50%....100% - 2 passes
+
+==ERROR== LaunchFailed
+==PROF== Trying to shutdown target application
+==ERROR== The application returned an error code (9).
+==ERROR== An error occurred while trying to profile.
+==PROF== Report: /scratch/nas/1/cuda1021/Projecte/pagerank_reportV2.ncu-rep
+
+---------------------------------------------------
+
+==PROF== Connected to process 157796 (/scratch/nas/1/cuda1021/Projecte/pagerank-parV3.exe)
+==PROF== Profiling "init_p(double *, int)" - 0: 0%....50%....100% - 34 passes
+==PROF== Profiling "init_p_new" - 1: 0%....50%....100% - 34 passes
+==PROF== Profiling "dangling_partial" - 2: 0%....50%....100% - 2 passes
+
+==ERROR== LaunchFailed
+==PROF== Trying to shutdown target application
+==ERROR== The application returned an error code (9).
+==ERROR== An error occurred while trying to profile.
+==PROF== Report: /scratch/nas/1/cuda1021/Projecte/pagerank_reportV3.ncu-rep
+
+---------------------------------------------------
+
+Iniciando nvprof...
+
+---------------------------------------------------
+
+CUDA PageRank (pagerank-parV1)
+Convergencia en 47 iteraciones
+p[2038044] = 0.0028772846	United States
+p[3528309] = 0.0011916531	United Kingdom
+p[605008] = 0.0011598535	France
+p[2697766] = 0.0010348175	Germany
+p[2693870] = 0.0009254558	World War II
+p[3001476] = 0.0008811039	Canada
+p[3102033] = 0.0008552851	England
+p[2899898] = 0.0008017589	India
+p[1394725] = 0.0007182590	Australia
+p[3102702] = 0.0007166082	Association football
+Total time: 30.301461 seconds
+Data loading time: 27.905745 seconds
+CSR conversion time: 0.302172 seconds
+PageRank time: 2.069207 seconds
+Results time: 0.004503 seconds
+Accumulated MV time (Transfer + Kernel): 1.041134 seconds
+Generating '/tmp/nsys-report-0b0c.qdstrm'
+
+[1/7] [0%                          ] report34.nsys-rep
+[1/7] [0%                          ] report34.nsys-rep
+[1/7] [=15%                        ] report34.nsys-rep
+[1/7] [=======36%                  ] report34.nsys-rep
+[1/7] [============56%             ] report34.nsys-rep
+[1/7] [=================74%        ] report34.nsys-rep
+[1/7] [=======================93%  ] report34.nsys-rep
+[1/7] [========================100%] report34.nsys-rep
+[1/7] [========================100%] report34.nsys-rep
+
+[2/7] [0%                          ] report34.sqlite
+[2/7] [1%                          ] report34.sqlite
+[2/7] [2%                          ] report34.sqlite
+[2/7] [3%                          ] report34.sqlite
+[2/7] [4%                          ] report34.sqlite
+[2/7] [5%                          ] report34.sqlite
+[2/7] [6%                          ] report34.sqlite
+[2/7] [7%                          ] report34.sqlite
+[2/7] [8%                          ] report34.sqlite
+[2/7] [9%                          ] report34.sqlite
+[2/7] [10%                         ] report34.sqlite
+[2/7] [11%                         ] report34.sqlite
+[2/7] [12%                         ] report34.sqlite
+[2/7] [13%                         ] report34.sqlite
+[2/7] [14%                         ] report34.sqlite
+[2/7] [=15%                        ] report34.sqlite
+[2/7] [=16%                        ] report34.sqlite
+[2/7] [=17%                        ] report34.sqlite
+[2/7] [==18%                       ] report34.sqlite
+[2/7] [==19%                       ] report34.sqlite
+[2/7] [==20%                       ] report34.sqlite
+[2/7] [==21%                       ] report34.sqlite
+[2/7] [===22%                      ] report34.sqlite
+[2/7] [===23%                      ] report34.sqlite
+[2/7] [===24%                      ] report34.sqlite
+[2/7] [====25%                     ] report34.sqlite
+[2/7] [====26%                     ] report34.sqlite
+[2/7] [====27%                     ] report34.sqlite
+[2/7] [====28%                     ] report34.sqlite
+[2/7] [=====29%                    ] report34.sqlite
+[2/7] [=====30%                    ] report34.sqlite
+[2/7] [=====31%                    ] report34.sqlite
+[2/7] [=====32%                    ] report34.sqlite
+[2/7] [======33%                   ] report34.sqlite
+[2/7] [======34%                   ] report34.sqlite
+[2/7] [======35%                   ] report34.sqlite
+[2/7] [=======36%                  ] report34.sqlite
+[2/7] [=======37%                  ] report34.sqlite
+[2/7] [=======38%                  ] report34.sqlite
+[2/7] [=======39%                  ] report34.sqlite
+[2/7] [========40%                 ] report34.sqlite
+[2/7] [========41%                 ] report34.sqlite
+[2/7] [========42%                 ] report34.sqlite
+[2/7] [=========43%                ] report34.sqlite
+[2/7] [=========44%                ] report34.sqlite
+[2/7] [=========45%                ] report34.sqlite
+[2/7] [=========46%                ] report34.sqlite
+[2/7] [==========47%               ] report34.sqlite
+[2/7] [==========48%               ] report34.sqlite
+[2/7] [==========49%               ] report34.sqlite
+[2/7] [===========50%              ] report34.sqlite
+[2/7] [===========51%              ] report34.sqlite
+[2/7] [===========52%              ] report34.sqlite
+[2/7] [===========53%              ] report34.sqlite
+[2/7] [============54%             ] report34.sqlite
+[2/7] [============55%             ] report34.sqlite
+[2/7] [============56%             ] report34.sqlite
+[2/7] [============57%             ] report34.sqlite
+[2/7] [=============58%            ] report34.sqlite
+[2/7] [=============59%            ] report34.sqlite
+[2/7] [=============60%            ] report34.sqlite
+[2/7] [==============61%           ] report34.sqlite
+[2/7] [==============62%           ] report34.sqlite
+[2/7] [==============63%           ] report34.sqlite
+[2/7] [==============64%           ] report34.sqlite
+[2/7] [===============65%          ] report34.sqlite
+[2/7] [===============66%          ] report34.sqlite
+[2/7] [===============67%          ] report34.sqlite
+[2/7] [================68%         ] report34.sqlite
+[2/7] [================69%         ] report34.sqlite
+[2/7] [================70%         ] report34.sqlite
+[2/7] [================71%         ] report34.sqlite
+[2/7] [=================72%        ] report34.sqlite
+[2/7] [=================73%        ] report34.sqlite
+[2/7] [=================74%        ] report34.sqlite
+[2/7] [==================75%       ] report34.sqlite
+[2/7] [==================76%       ] report34.sqlite
+[2/7] [==================77%       ] report34.sqlite
+[2/7] [==================78%       ] report34.sqlite
+[2/7] [===================79%      ] report34.sqlite
+[2/7] [===================80%      ] report34.sqlite
+[2/7] [===================81%      ] report34.sqlite
+[2/7] [===================82%      ] report34.sqlite
+[2/7] [====================83%     ] report34.sqlite
+[2/7] [====================84%     ] report34.sqlite
+[2/7] [====================85%     ] report34.sqlite
+[2/7] [=====================86%    ] report34.sqlite
+[2/7] [=====================87%    ] report34.sqlite
+[2/7] [=====================88%    ] report34.sqlite
+[2/7] [=====================89%    ] report34.sqlite
+[2/7] [======================90%   ] report34.sqlite
+[2/7] [======================91%   ] report34.sqlite
+[2/7] [======================92%   ] report34.sqlite
+[2/7] [=======================93%  ] report34.sqlite
+[2/7] [=======================94%  ] report34.sqlite
+[2/7] [=======================95%  ] report34.sqlite
+[2/7] [=======================96%  ] report34.sqlite
+[2/7] [========================97% ] report34.sqlite
+[2/7] [========================98% ] report34.sqlite
+[2/7] [========================99% ] report34.sqlite
+[2/7] [========================100%] report34.sqlite
+[2/7] [========================100%] report34.sqlite
+[3/7] Executing 'nvtx_sum' stats report
+[4/7] Executing 'cuda_api_sum' stats report
+
+ Time (%)  Total Time (ns)  Num Calls    Avg (ns)     Med (ns)    Min (ns)    Max (ns)    StdDev (ns)            Name         
+ --------  ---------------  ---------  ------------  -----------  ---------  -----------  ------------  ----------------------
+     90.1    1,080,491,913        147   7,350,285.1  3,218,089.0  1,641,001   38,550,591   6,209,108.1  cudaMemcpy            
+      9.3      111,749,825          5  22,349,965.0     79,893.0     54,314  111,462,290  49,815,305.2  cudaMalloc            
+      0.5        6,102,396          5   1,220,479.2  1,103,395.0    180,180    2,112,371     876,841.8  cudaFree              
+      0.1        1,221,339         48      25,444.6     22,326.0     16,689      169,969      21,636.5  cudaLaunchKernel      
+      0.0            1,104          1       1,104.0      1,104.0      1,104        1,104           0.0  cuModuleGetLoadingMode
+
+[5/7] Executing 'cuda_gpu_kern_sum' stats report
+
+ Time (%)  Total Time (ns)  Instances    Avg (ns)      Med (ns)     Min (ns)    Max (ns)   StdDev (ns)                                                 Name                                               
+ --------  ---------------  ---------  ------------  ------------  ----------  ----------  -----------  --------------------------------------------------------------------------------------------------
+    100.0      567,106,933         48  11,814,727.8  11,802,155.0  11,720,363  11,963,722     62,906.3  kernel_pagerank_push(int, const int *, const int *, const int *, const double *, double *, double)
+
+[6/7] Executing 'cuda_gpu_mem_time_sum' stats report
+
+ Time (%)  Total Time (ns)  Count   Avg (ns)     Med (ns)    Min (ns)    Max (ns)   StdDev (ns)      Operation     
+ --------  ---------------  -----  -----------  -----------  ---------  ----------  -----------  ------------------
+     68.7      341,797,683     99  3,452,501.8  3,101,722.0  1,561,469  38,418,298  3,557,979.7  [CUDA memcpy HtoD]
+     31.3      155,922,692     48  3,248,389.4  3,192,282.0  3,168,826   4,303,897    207,636.3  [CUDA memcpy DtoH]
+
+[7/7] Executing 'cuda_gpu_mem_size_sum' stats report
+
+ Total (MB)  Count  Avg (MB)  Med (MB)  Min (MB)  Max (MB)  StdDev (MB)      Operation     
+ ----------  -----  --------  --------  --------  --------  -----------  ------------------
+  3,669.711     99    37.068    33.654    16.827   405.246       37.457  [CUDA memcpy HtoD]
+  1,615.405     48    33.654    33.654    33.654    33.654        0.000  [CUDA memcpy DtoH]
+
+Generated:
+    /scratch/nas/1/cuda1021/Projecte/report34.nsys-rep
+    /scratch/nas/1/cuda1021/Projecte/report34.sqlite
+
+---------------------------------------------------
+
+CUDA PageRank (pagerank-parV2)
+Convergencia en 47 iteraciones
+p[2038044] = 0.0028772846	United States
+p[3528309] = 0.0011916531	United Kingdom
+p[605008] = 0.0011598535	France
+p[2697766] = 0.0010348175	Germany
+p[2693870] = 0.0009254558	World War II
+p[3001476] = 0.0008811039	Canada
+p[3102033] = 0.0008552851	England
+p[2899898] = 0.0008017589	India
+p[1394725] = 0.0007182590	Australia
+p[3102702] = 0.0007166082	Association football
+Total time: 28.275525 seconds
+Data loading time: 26.931286 seconds
+CSR conversion time: 0.291468 seconds
+PageRank time (CUDA): 1.030652 seconds
+Results time: 0.004363 seconds
+Accumulated matrix-vector multiplication time: 0.000000 seconds (Not measured in GPU)
+Generating '/tmp/nsys-report-0ca9.qdstrm'
+
+[1/7] [0%                          ] report35.nsys-rep
+[1/7] [0%                          ] report35.nsys-rep
+[1/7] [====28%                     ] report35.nsys-rep
+[1/7] [========41%                 ] report35.nsys-rep
+[1/7] [============55%             ] report35.nsys-rep
+[1/7] [=================72%        ] report35.nsys-rep
+[1/7] [=====================89%    ] report35.nsys-rep
+[1/7] [========================100%] report35.nsys-rep
+[1/7] [========================100%] report35.nsys-rep
+
+[2/7] [0%                          ] report35.sqlite
+[2/7] [1%                          ] report35.sqlite
+[2/7] [2%                          ] report35.sqlite
+[2/7] [3%                          ] report35.sqlite
+[2/7] [4%                          ] report35.sqlite
+[2/7] [5%                          ] report35.sqlite
+[2/7] [6%                          ] report35.sqlite
+[2/7] [7%                          ] report35.sqlite
+[2/7] [8%                          ] report35.sqlite
+[2/7] [9%                          ] report35.sqlite
+[2/7] [10%                         ] report35.sqlite
+[2/7] [11%                         ] report35.sqlite
+[2/7] [12%                         ] report35.sqlite
+[2/7] [13%                         ] report35.sqlite
+[2/7] [14%                         ] report35.sqlite
+[2/7] [=15%                        ] report35.sqlite
+[2/7] [=16%                        ] report35.sqlite
+[2/7] [=17%                        ] report35.sqlite
+[2/7] [==18%                       ] report35.sqlite
+[2/7] [==19%                       ] report35.sqlite
+[2/7] [==20%                       ] report35.sqlite
+[2/7] [==21%                       ] report35.sqlite
+[2/7] [===22%                      ] report35.sqlite
+[2/7] [===23%                      ] report35.sqlite
+[2/7] [===24%                      ] report35.sqlite
+[2/7] [====25%                     ] report35.sqlite
+[2/7] [====26%                     ] report35.sqlite
+[2/7] [====27%                     ] report35.sqlite
+[2/7] [====28%                     ] report35.sqlite
+[2/7] [=====29%                    ] report35.sqlite
+[2/7] [=====30%                    ] report35.sqlite
+[2/7] [=====31%                    ] report35.sqlite
+[2/7] [=====32%                    ] report35.sqlite
+[2/7] [======33%                   ] report35.sqlite
+[2/7] [======34%                   ] report35.sqlite
+[2/7] [======35%                   ] report35.sqlite
+[2/7] [=======36%                  ] report35.sqlite
+[2/7] [=======37%                  ] report35.sqlite
+[2/7] [=======38%                  ] report35.sqlite
+[2/7] [=======39%                  ] report35.sqlite
+[2/7] [========40%                 ] report35.sqlite
+[2/7] [========41%                 ] report35.sqlite
+[2/7] [========42%                 ] report35.sqlite
+[2/7] [=========43%                ] report35.sqlite
+[2/7] [=========44%                ] report35.sqlite
+[2/7] [=========45%                ] report35.sqlite
+[2/7] [=========46%                ] report35.sqlite
+[2/7] [==========47%               ] report35.sqlite
+[2/7] [==========48%               ] report35.sqlite
+[2/7] [==========49%               ] report35.sqlite
+[2/7] [===========50%              ] report35.sqlite
+[2/7] [===========51%              ] report35.sqlite
+[2/7] [===========52%              ] report35.sqlite
+[2/7] [===========53%              ] report35.sqlite
+[2/7] [============54%             ] report35.sqlite
+[2/7] [============55%             ] report35.sqlite
+[2/7] [============56%             ] report35.sqlite
+[2/7] [============57%             ] report35.sqlite
+[2/7] [=============58%            ] report35.sqlite
+[2/7] [=============59%            ] report35.sqlite
+[2/7] [=============60%            ] report35.sqlite
+[2/7] [==============61%           ] report35.sqlite
+[2/7] [==============62%           ] report35.sqlite
+[2/7] [==============63%           ] report35.sqlite
+[2/7] [==============64%           ] report35.sqlite
+[2/7] [===============65%          ] report35.sqlite
+[2/7] [===============66%          ] report35.sqlite
+[2/7] [===============67%          ] report35.sqlite
+[2/7] [================68%         ] report35.sqlite
+[2/7] [================69%         ] report35.sqlite
+[2/7] [================70%         ] report35.sqlite
+[2/7] [================71%         ] report35.sqlite
+[2/7] [=================72%        ] report35.sqlite
+[2/7] [=================73%        ] report35.sqlite
+[2/7] [=================74%        ] report35.sqlite
+[2/7] [==================75%       ] report35.sqlite
+[2/7] [==================76%       ] report35.sqlite
+[2/7] [==================77%       ] report35.sqlite
+[2/7] [==================78%       ] report35.sqlite
+[2/7] [===================79%      ] report35.sqlite
+[2/7] [===================80%      ] report35.sqlite
+[2/7] [===================81%      ] report35.sqlite
+[2/7] [===================82%      ] report35.sqlite
+[2/7] [====================83%     ] report35.sqlite
+[2/7] [====================84%     ] report35.sqlite
+[2/7] [====================85%     ] report35.sqlite
+[2/7] [=====================86%    ] report35.sqlite
+[2/7] [=====================87%    ] report35.sqlite
+[2/7] [=====================88%    ] report35.sqlite
+[2/7] [=====================89%    ] report35.sqlite
+[2/7] [======================90%   ] report35.sqlite
+[2/7] [======================91%   ] report35.sqlite
+[2/7] [======================92%   ] report35.sqlite
+[2/7] [=======================93%  ] report35.sqlite
+[2/7] [=======================94%  ] report35.sqlite
+[2/7] [=======================95%  ] report35.sqlite
+[2/7] [=======================96%  ] report35.sqlite
+[2/7] [========================97% ] report35.sqlite
+[2/7] [========================98% ] report35.sqlite
+[2/7] [========================99% ] report35.sqlite
+[2/7] [========================100%] report35.sqlite
+[2/7] [========================100%] report35.sqlite
+[3/7] Executing 'nvtx_sum' stats report
+[4/7] Executing 'cuda_api_sum' stats report
+
+ Time (%)  Total Time (ns)  Num Calls    Avg (ns)      Med (ns)    Min (ns)   Max (ns)    StdDev (ns)            Name         
+ --------  ---------------  ---------  ------------  ------------  --------  -----------  ------------  ----------------------
+     74.2      573,516,907         49  11,704,426.7  11,949,569.0   123,073   12,095,092   1,690,644.2  cudaDeviceSynchronize 
+     14.6      112,640,185          6  18,773,364.2      63,092.5    53,358  112,312,875  45,824,816.5  cudaMalloc            
+     10.3       79,293,183        100     792,931.8     221,157.5   206,661   37,352,785   4,058,221.4  cudaMemcpy            
+      0.8        6,032,213          6   1,005,368.8   1,050,951.5   168,625    2,101,850     651,864.4  cudaFree              
+      0.1        1,156,347        241       4,798.1       3,498.0     3,048      212,456      13,550.7  cudaLaunchKernel      
+      0.0            1,040          1       1,040.0       1,040.0     1,040        1,040           0.0  cuModuleGetLoadingMode
+
+[5/7] Executing 'cuda_gpu_kern_sum' stats report
+
+ Time (%)  Total Time (ns)  Instances    Avg (ns)      Med (ns)     Min (ns)    Max (ns)   StdDev (ns)                                             Name                                            
+ --------  ---------------  ---------  ------------  ------------  ----------  ----------  -----------  -------------------------------------------------------------------------------------------
+     95.9      568,674,610         48  11,847,387.7  11,851,867.0  11,694,187  12,003,115     76,661.7  pagerank_step(const int *, const int *, const int *, const double *, double *, int, double)
+      1.6        9,377,328         48     195,361.0     182,608.0     182,271     213,888     15,429.8  update_and_diff(const double *, double *, double *, int)                                   
+      1.3        7,517,423         48     156,613.0     145,807.5     145,536     171,007     12,467.5  dangling_partial(const double *, const int *, double *, int)                               
+      0.8        4,752,600         48      99,012.5      99,007.5      98,367      99,744        356.2  add_dangling(double *, int, double)                                                        
+      0.4        2,274,494         48      47,385.3      47,360.0      47,104      48,256        182.1  init_p_new(double *, int, double)                                                          
+      0.0          124,576          1     124,576.0     124,576.0     124,576     124,576          0.0  init_p(double *, int)                                                                      
+
+[6/7] Executing 'cuda_gpu_mem_time_sum' stats report
+
+ Time (%)  Total Time (ns)  Count    Avg (ns)     Med (ns)    Min (ns)    Max (ns)   StdDev (ns)       Operation     
+ --------  ---------------  -----  ------------  -----------  ---------  ----------  ------------  ------------------
+     70.4       40,279,958      3  13,426,652.7  1,538,397.0  1,509,469  37,232,092  20,616,120.3  [CUDA memcpy HtoD]
+     29.6       16,950,434     97     174,746.7      5,952.0      5,824  16,375,682   1,662,090.7  [CUDA memcpy DtoH]
+
+[7/7] Executing 'cuda_gpu_mem_size_sum' stats report
+
+ Total (MB)  Count  Avg (MB)  Med (MB)  Min (MB)  Max (MB)  StdDev (MB)      Operation     
+ ----------  -----  --------  --------  --------  --------  -----------  ------------------
+    438.901      3   146.300    16.827    16.827   405.246      224.254  [CUDA memcpy HtoD]
+     46.275     97     0.477     0.131     0.131    33.654        3.404  [CUDA memcpy DtoH]
+
+Generated:
+    /scratch/nas/1/cuda1021/Projecte/report35.nsys-rep
+    /scratch/nas/1/cuda1021/Projecte/report35.sqlite
+
+---------------------------------------------------
+
+CUDA PageRank (pagerank-parV3)
+Convergencia en 47 iteraciones
+p[2038044] = 0.0028772846	United States
+p[3528309] = 0.0011916531	United Kingdom
+p[605008] = 0.0011598535	France
+p[2697766] = 0.0010348175	Germany
+p[2693870] = 0.0009254558	World War II
+p[3001476] = 0.0008811039	Canada
+p[3102033] = 0.0008552851	England
+p[2899898] = 0.0008017589	India
+p[1394725] = 0.0007182590	Australia
+p[3102702] = 0.0007166082	Association football
+Total time: 29.083765 s
+  - Data loading: 27.652114 s
+  - CSR conversion: 0.287026 s
+  - Edge mapping: 0.201349 s
+  - PageRank (CUDA Edge): 0.905771 s
+  - Results formatting: 0.004357 s
+Generating '/tmp/nsys-report-927a.qdstrm'
+
+[1/7] [0%                          ] report36.nsys-rep
+[1/7] [0%                          ] report36.nsys-rep
+[1/7] [9%                          ] report36.nsys-rep
+[1/7] [==21%                       ] report36.nsys-rep
+[1/7] [======33%                   ] report36.nsys-rep
+[1/7] [========42%                 ] report36.nsys-rep
+[1/7] [=====================86%    ] report36.nsys-rep
+[1/7] [========================100%] report36.nsys-rep
+[1/7] [========================100%] report36.nsys-rep
+
+[2/7] [0%                          ] report36.sqlite
+[2/7] [1%                          ] report36.sqlite
+[2/7] [2%                          ] report36.sqlite
+[2/7] [3%                          ] report36.sqlite
+[2/7] [4%                          ] report36.sqlite
+[2/7] [5%                          ] report36.sqlite
+[2/7] [6%                          ] report36.sqlite
+[2/7] [7%                          ] report36.sqlite
+[2/7] [8%                          ] report36.sqlite
+[2/7] [9%                          ] report36.sqlite
+[2/7] [10%                         ] report36.sqlite
+[2/7] [11%                         ] report36.sqlite
+[2/7] [12%                         ] report36.sqlite
+[2/7] [13%                         ] report36.sqlite
+[2/7] [14%                         ] report36.sqlite
+[2/7] [=15%                        ] report36.sqlite
+[2/7] [=16%                        ] report36.sqlite
+[2/7] [=17%                        ] report36.sqlite
+[2/7] [==18%                       ] report36.sqlite
+[2/7] [==19%                       ] report36.sqlite
+[2/7] [==20%                       ] report36.sqlite
+[2/7] [==21%                       ] report36.sqlite
+[2/7] [===22%                      ] report36.sqlite
+[2/7] [===23%                      ] report36.sqlite
+[2/7] [===24%                      ] report36.sqlite
+[2/7] [====25%                     ] report36.sqlite
+[2/7] [====26%                     ] report36.sqlite
+[2/7] [====27%                     ] report36.sqlite
+[2/7] [====28%                     ] report36.sqlite
+[2/7] [=====29%                    ] report36.sqlite
+[2/7] [=====30%                    ] report36.sqlite
+[2/7] [=====31%                    ] report36.sqlite
+[2/7] [=====32%                    ] report36.sqlite
+[2/7] [======33%                   ] report36.sqlite
+[2/7] [======34%                   ] report36.sqlite
+[2/7] [======35%                   ] report36.sqlite
+[2/7] [=======36%                  ] report36.sqlite
+[2/7] [=======37%                  ] report36.sqlite
+[2/7] [=======38%                  ] report36.sqlite
+[2/7] [=======39%                  ] report36.sqlite
+[2/7] [========40%                 ] report36.sqlite
+[2/7] [========41%                 ] report36.sqlite
+[2/7] [========42%                 ] report36.sqlite
+[2/7] [=========43%                ] report36.sqlite
+[2/7] [=========44%                ] report36.sqlite
+[2/7] [=========45%                ] report36.sqlite
+[2/7] [=========46%                ] report36.sqlite
+[2/7] [==========47%               ] report36.sqlite
+[2/7] [==========48%               ] report36.sqlite
+[2/7] [==========49%               ] report36.sqlite
+[2/7] [===========50%              ] report36.sqlite
+[2/7] [===========51%              ] report36.sqlite
+[2/7] [===========52%              ] report36.sqlite
+[2/7] [===========53%              ] report36.sqlite
+[2/7] [============54%             ] report36.sqlite
+[2/7] [============55%             ] report36.sqlite
+[2/7] [============56%             ] report36.sqlite
+[2/7] [============57%             ] report36.sqlite
+[2/7] [=============58%            ] report36.sqlite
+[2/7] [=============59%            ] report36.sqlite
+[2/7] [=============60%            ] report36.sqlite
+[2/7] [==============61%           ] report36.sqlite
+[2/7] [==============62%           ] report36.sqlite
+[2/7] [==============63%           ] report36.sqlite
+[2/7] [==============64%           ] report36.sqlite
+[2/7] [===============65%          ] report36.sqlite
+[2/7] [===============66%          ] report36.sqlite
+[2/7] [===============67%          ] report36.sqlite
+[2/7] [================68%         ] report36.sqlite
+[2/7] [================69%         ] report36.sqlite
+[2/7] [================70%         ] report36.sqlite
+[2/7] [================71%         ] report36.sqlite
+[2/7] [=================72%        ] report36.sqlite
+[2/7] [=================73%        ] report36.sqlite
+[2/7] [=================74%        ] report36.sqlite
+[2/7] [==================75%       ] report36.sqlite
+[2/7] [==================76%       ] report36.sqlite
+[2/7] [==================77%       ] report36.sqlite
+[2/7] [==================78%       ] report36.sqlite
+[2/7] [===================79%      ] report36.sqlite
+[2/7] [===================80%      ] report36.sqlite
+[2/7] [===================81%      ] report36.sqlite
+[2/7] [===================82%      ] report36.sqlite
+[2/7] [====================83%     ] report36.sqlite
+[2/7] [====================84%     ] report36.sqlite
+[2/7] [====================85%     ] report36.sqlite
+[2/7] [=====================86%    ] report36.sqlite
+[2/7] [=====================87%    ] report36.sqlite
+[2/7] [=====================88%    ] report36.sqlite
+[2/7] [=====================89%    ] report36.sqlite
+[2/7] [======================90%   ] report36.sqlite
+[2/7] [======================91%   ] report36.sqlite
+[2/7] [======================92%   ] report36.sqlite
+[2/7] [=======================93%  ] report36.sqlite
+[2/7] [=======================94%  ] report36.sqlite
+[2/7] [=======================95%  ] report36.sqlite
+[2/7] [=======================96%  ] report36.sqlite
+[2/7] [========================97% ] report36.sqlite
+[2/7] [========================98% ] report36.sqlite
+[2/7] [========================99% ] report36.sqlite
+[2/7] [========================100%] report36.sqlite
+[2/7] [========================100%] report36.sqlite
+[3/7] Executing 'nvtx_sum' stats report
+[4/7] Executing 'cuda_api_sum' stats report
+
+ Time (%)  Total Time (ns)  Num Calls    Avg (ns)      Med (ns)    Min (ns)    Max (ns)    StdDev (ns)            Name         
+ --------  ---------------  ---------  ------------  ------------  ---------  -----------  ------------  ----------------------
+     67.5      441,654,987        192   2,300,286.4      86,906.0        792    9,296,241   3,889,590.4  cudaStreamSynchronize 
+     16.3      106,681,986        104   1,025,788.3       2,439.5      2,119  105,954,798  10,389,043.3  cudaMalloc            
+     14.5       94,845,136          5  18,969,027.2  16,958,821.0  1,580,552   37,450,562  17,906,341.2  cudaMemcpy            
+      1.3        8,325,578        104      80,053.6       2,036.0      1,897    1,988,162     304,459.2  cudaFree              
+      0.3        2,239,811        433       5,172.8       3,591.0      3,059      598,872      28,633.6  cudaLaunchKernel      
+      0.1          818,712         96       8,528.3       8,176.0      7,662       26,333       2,026.7  cudaMemcpyAsync       
+      0.0            1,434          1       1,434.0       1,434.0      1,434        1,434           0.0  cuModuleGetLoadingMode
+
+[5/7] Executing 'cuda_gpu_kern_sum' stats report
+
+ Time (%)  Total Time (ns)  Instances   Avg (ns)     Med (ns)    Min (ns)   Max (ns)   StdDev (ns)                                                  Name                                                
+ --------  ---------------  ---------  -----------  -----------  ---------  ---------  -----------  ----------------------------------------------------------------------------------------------------
+     94.6      419,950,679         48  8,748,972.5  8,677,872.5  8,663,921  9,002,288    132,198.2  pagerank_edge_step(const int *, const int *, const int *, const double *, double *, int, double)    
+      2.0        9,097,964         48    189,540.9    182,464.0    182,272    213,664     13,124.2  update_and_diff(const double *, double *, double *, int)                                            
+      1.6        7,289,462         48    151,863.8    145,680.0    145,535    170,624     10,834.1  dangling_partial(const double *, const int *, double *, int)                                        
+      1.1        4,739,444         48     98,738.4     98,720.0     98,015     99,648        379.6  add_dangling(double *, int, double)                                                                 
+      0.5        2,252,603         48     46,929.2     46,912.0     46,656     47,999        192.4  init_p_new(double *, int, double)                                                                   
+      0.1          294,528         96      3,068.0      2,991.5      2,911      3,457        183.7  void cub::CUB_200200_860_890_NS::DeviceReduceKernel<cub::CUB_200200_860_890_NS::DeviceReducePolicy<…
+      0.0          203,456         96      2,119.3      2,048.0      1,984      2,527        146.6  void cub::CUB_200200_860_890_NS::DeviceReduceSingleTileKernel<cub::CUB_200200_860_890_NS::DeviceRed…
+      0.0          124,639          1    124,639.0    124,639.0    124,639    124,639          0.0  init_p(double *, int)                                                                               
+
+[6/7] Executing 'cuda_gpu_mem_time_sum' stats report
+
+ Time (%)  Total Time (ns)  Count    Avg (ns)      Med (ns)    Min (ns)    Max (ns)   StdDev (ns)       Operation     
+ --------  ---------------  -----  ------------  ------------  ---------  ----------  ------------  ------------------
+     82.5       77,500,886      4  19,375,221.5  19,339,917.5  1,495,198  37,325,853  20,620,466.5  [CUDA memcpy HtoD]
+     17.5       16,462,977     97     169,721.4       1,056.0      1,023  16,359,747   1,660,971.5  [CUDA memcpy DtoH]
+
+[7/7] Executing 'cuda_gpu_mem_size_sum' stats report
+
+ Total (MB)  Count  Avg (MB)  Med (MB)  Min (MB)  Max (MB)  StdDev (MB)      Operation     
+ ----------  -----  --------  --------  --------  --------  -----------  ------------------
+    844.147      4   211.037   211.037    16.827   405.246      224.254  [CUDA memcpy HtoD]
+     33.655     97     0.347     0.000     0.000    33.654        3.417  [CUDA memcpy DtoH]
+
+Generated:
+    /scratch/nas/1/cuda1021/Projecte/report36.nsys-rep
+    /scratch/nas/1/cuda1021/Projecte/report36.sqlite
+
+---------------------------------------------------
+Iniciando ejecuciones normales...
+CUDA PageRank (pagerank-parV1)
+Convergencia en 47 iteraciones
+p[2038044] = 0.0028772846	United States
+p[3528309] = 0.0011916531	United Kingdom
+p[605008] = 0.0011598535	France
+p[2697766] = 0.0010348175	Germany
+p[2693870] = 0.0009254558	World War II
+p[3001476] = 0.0008811039	Canada
+p[3102033] = 0.0008552851	England
+p[2899898] = 0.0008017589	India
+p[1394725] = 0.0007182590	Australia
+p[3102702] = 0.0007166082	Association football
+Total time: 28.013309 seconds
+Data loading time: 25.826526 seconds
+CSR conversion time: 0.285221 seconds
+PageRank time: 1.879977 seconds
+Results time: 0.004471 seconds
+Accumulated MV time (Transfer + Kernel): 1.032013 seconds
+CUDA PageRank (pagerank-parV2)
+Convergencia en 47 iteraciones
+p[2038044] = 0.0028772846	United States
+p[3528309] = 0.0011916531	United Kingdom
+p[605008] = 0.0011598535	France
+p[2697766] = 0.0010348175	Germany
+p[2693870] = 0.0009254558	World War II
+p[3001476] = 0.0008811039	Canada
+p[3102033] = 0.0008552851	England
+p[2899898] = 0.0008017589	India
+p[1394725] = 0.0007182590	Australia
+p[3102702] = 0.0007166082	Association football
+Total time: 28.302141 seconds
+Data loading time: 27.107687 seconds
+CSR conversion time: 0.294008 seconds
+PageRank time (CUDA): 0.879082 seconds
+Results time: 0.004512 seconds
+Accumulated matrix-vector multiplication time: 0.000000 seconds (Not measured in GPU)
+CUDA PageRank (pagerank-parV3)
+Convergencia en 47 iteraciones
+p[2038044] = 0.0028772846	United States
+p[3528309] = 0.0011916531	United Kingdom
+p[605008] = 0.0011598535	France
+p[2697766] = 0.0010348175	Germany
+p[2693870] = 0.0009254558	World War II
+p[3001476] = 0.0008811039	Canada
+p[3102033] = 0.0008552851	England
+p[2899898] = 0.0008017589	India
+p[1394725] = 0.0007182590	Australia
+p[3102702] = 0.0007166082	Association football
+Total time: 28.021668 s
+  - Data loading: 26.733401 s
+  - CSR conversion: 0.289412 s
+  - Edge mapping: 0.198176 s
+  - PageRank (CUDA Edge): 0.766007 s
+  - Results formatting: 0.004465 s
